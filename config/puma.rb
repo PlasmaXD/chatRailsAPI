@@ -46,6 +46,6 @@ pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
 
 # ログを標準出力と標準エラーにリダイレクト
 stdout_redirect "/dev/stdout", "/dev/stderr", true
-
+log_requests true
 # Puma を再起動可能にする
 plugin :tmp_restart

@@ -59,6 +59,7 @@
     <orderEntry type="library" scope="PROVIDED" name="io-console (v0.7.2, RVM: ruby-3.1.0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="irb (v1.14.0, RVM: ruby-3.1.0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="jsonapi-renderer (v0.2.2, RVM: ruby-3.1.0) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="logger (v1.6.1, RVM: ruby-3.1.0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="loofah (v2.22.0, RVM: ruby-3.1.0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="mail (v2.8.1, RVM: ruby-3.1.0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="marcel (v1.0.4, RVM: ruby-3.1.0) [gem]" level="application" />
@@ -87,7 +88,10 @@
     <orderEntry type="library" scope="PROVIDED" name="railties (v7.1.4, RVM: ruby-3.1.0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rake (v13.2.1, RVM: ruby-3.1.0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rdoc (v6.7.0, RVM: ruby-3.1.0) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="redis (v5.3.0, RVM: ruby-3.1.0) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="redis-client (v0.22.2, RVM: ruby-3.1.0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="reline (v0.5.10, RVM: ruby-3.1.0) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="sidekiq (v7.3.2, RVM: ruby-3.1.0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="stringio (v3.1.1, RVM: ruby-3.1.0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="thor (v1.3.2, RVM: ruby-3.1.0) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="timeout (v0.4.1, RVM: ruby-3.1.0) [gem]" level="application" />
@@ -123,6 +127,7 @@
         <option value="scaffold" />
         <option value="scaffold_controller" />
         <option value="serializer" />
+        <option value="sidekiq:job" />
         <option value="system_test" />
         <option value="task" />
         <option value="test_unit:channel" />
@@ -161,6 +166,7 @@
         <option value="scaffold" />
         <option value="scaffold_controller" />
         <option value="serializer" />
+        <option value="sidekiq:job" />
         <option value="system_test" />
         <option value="task" />
         <option value="test_unit:channel" />
