@@ -1,0 +1,38 @@
+runtime: ruby
+env: flex
+
+#runtime_config:
+#  ruby_version: 2.7.5
+runtime_config:
+  operating_system: "ubuntu22"
+# インスタンスの構成（オプション）
+resources:
+  cpu: 1
+  memory_gb: 1
+  disk_size_gb: 10
+
+# 環境変数の設定
+env_variables:
+  RAILS_ENV: production
+  RACK_ENV: production
+  SECRET_KEY_BASE: 301d7900d107a3183f664ea807c67ab35db7f292e7cbc60fcee98a8802ef0642676d178b12912cae6b60fe193e172e36994a3f07d6326f993d0e222d2b976fc7
+  DATABASE_NAME: chatapp
+  DATABASE_USER: jun
+  DATABASE_PASSWORD: pass
+  INSTANCE_CONNECTION_NAME: cryptic-pipe-435706-n0:us-east1:railsapi-postgres
+  DB_HOST: '/cloudsql/cryptic-pipe-435706-n0:us-east1:railsapi-postgres'
+# Cloud SQLへの接続設定
+beta_settings:
+  cloud_sql_instances: cryptic-pipe-435706-n0:us-east1:railsapi-postgres
+
+# 自動スケーリングの設定（オプション）
+automatic_scaling:
+  min_num_instances: 1
+  max_num_instances: 2
+  cpu_utilization:
+    target_utilization: 0.6
+
+# ハンドラの設定
+handlers:
+  - url: /.*
+    script: auto

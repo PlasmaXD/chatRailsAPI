@@ -81,6 +81,12 @@ test:
 #
 production:
   <<: *default
-  database: chatapp_production
-  username: chatapp
-  password: <%= ENV["CHATAPP_DATABASE_PASSWORD"] %>
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  host: /cloudsql/cryptic-pipe-435706-n0:us-east1:railsapi-postgres
+  database: chatapp
+  username: <%= ENV['CHATAPP_DATABASE_USER'] || 'postgres' %>
+  password: <%= ENV["CHATAPP_DATABASE_PASSWORD"] || 'pass' %>
+#  host: <%#= ENV['POSTGRES_HOST'] || 'host.docker.internal' %>
+  port: 5432

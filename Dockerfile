@@ -11,7 +11,8 @@ WORKDIR /rails
 ENV RAILS_ENV="production" \
     BUNDLE_DEPLOYMENT="1" \
     BUNDLE_PATH="/usr/local/bundle" \
-    BUNDLE_WITHOUT="development"
+    BUNDLE_WITHOUT="development" \
+    SECRET_KEY_BASE=01056897673e7d30eb0a529df68710d0fc52e0b74d4216297a29ed92d1e9f2f9a22eed21a054b0edff2d9e11ee28aed4583db4898c823512cfe973d678dc2ee2
 
 
 # Throw-away build stage to reduce size of final image
@@ -55,5 +56,5 @@ USER rails:rails
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
 # Start the server by default, this can be overwritten at runtime
-EXPOSE 3000
-CMD ["./bin/rails", "server"]
+EXPOSE 8080
+CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]

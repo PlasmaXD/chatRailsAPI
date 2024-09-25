@@ -21,5 +21,6 @@ class UsersController < ApplicationController
     end
   end
 
+
   # 他のプライベートメソッドや強いパラメーターの設定があれば、ここに記述します。
 end
