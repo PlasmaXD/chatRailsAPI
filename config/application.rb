@@ -28,6 +28,12 @@ module Chatapp
     # Only loads a smaller set of middleware suitable for API only apps.
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
+    config.load_defaults 6.1
+    # Load environment variables from .env
+    # Dotenv::Railtie.load
     config.api_only = true
+    config.middleware.use ActionDispatch::Cookies
+    config.middleware.use ActionDispatch::Session::CookieStore, key: '_your_app_session'
+
   end
 end

@@ -16,7 +16,7 @@
 # end
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins 'http://localhost:3000' ,'http://localhost:3001','https://localhost:3001', 'https://railsapi-383728560258.us-east1.run.app' # フロントエンドとAPIの両方のURLを指定
+    origins 'http://localhost:3000', 'http://0.0.0.0:3000', 'http://localhost:3001', 'https://localhost:3001', 'https://railsapi-383728560258.us-east1.run.app'
 
     resource '*',
              headers: :any,

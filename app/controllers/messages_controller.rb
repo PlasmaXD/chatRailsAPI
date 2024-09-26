@@ -1,63 +1,56 @@
 class MessagesController < ApplicationController
-  include ActionController::MimeResponds
-  before_action :set_default_response_format
-  before_action :set_message, only: [:destroy]  # destroyの前にメッセージを取得
+  before_action :set_chat_room, only: [:index, :create, :suggest_reply]
 
+  # メッセージ一覧取得
   def index
-    chat_room = ChatRoom.find(params[:chat_room_id])
-    messages = chat_room.messages.includes(:user)
+    messages = @chat_room.messages.includes(:user)
     render json: messages.as_json(include: { user: { only: [:id, :name] } })
   end
 
+  # メッセージ送信
   def create
-    chat_room = ChatRoom.find(params[:chat_room_id])
-    message = chat_room.messages.new(message_params)
+    message = @chat_room.messages.new(message_params.merge(user_id: current_user.id))
 
     if message.save
-      # ブロードキャストの引数を正しく渡す
+      # メッセージのブロードキャスト
       ActionCable.server.broadcast(
-        "chat_room_#{chat_room.id}",
-        {
-          message: message.as_json(include: { user: { only: [:id, :name] } })
-        }
+        "chat_room_#{@chat_room.id}",
+        { message: message.as_json(include: { user: { only: [:id, :name] } }) }
       )
-      render(
-        json: message.as_json(include: { user: { only: [:id, :name] } }),
-        status: :created
-      )
+
+      # 推奨返信の取得
+      begin
+        suggest_reply(@chat_room.id)
+      rescue => e
+        Rails.logger.error("推奨返信の取得中にエラーが発生しました: #{e.message}")
+      end
+
+      # メッセージ作成のレスポンス
+      render json: message.as_json(include: { user: { only: [:id, :name] } }), status: :created
     else
-      render(
-        json: { errors: message.errors.full_messages },
-        status: :unprocessable_entity
-      )
+      Rails.logger.error(message.errors.full_messages.to_sentence)
+      render json: { errors: message.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
-  def destroy
-    if @message
-      @message.destroy
-      ActionCable.server.broadcast(
-        "chat_room_#{params[:chat_room_id]}",
-        { action: 'delete', message_id: @message.id }
-      )
-      head :no_content
+  # 推奨返信取得用のアクションを追加
+  def suggest_reply
+    suggested_reply = GcpLlmService.new(@chat_room.id).fetch_suggested_reply
+
+    if suggested_reply.present?
+      render json: { suggested_reply: suggested_reply }, status: :ok
     else
-      render json: { error: "Message not found" }, status: :not_found
+      render json: { error: "推奨返信の取得に失敗しました" }, status: :unprocessable_entity
     end
   end
 
   private
 
-  def set_default_response_format
-    request.format = :json
-  end
-
-  # 追加: メッセージを取得するメソッド
-  def set_message
-    @message = Message.find_by(id: params[:id], chat_room_id: params[:chat_room_id])
+  def set_chat_room
+    @chat_room = ChatRoom.find(params[:chat_room_id])
   end
 
   def message_params
-    params.require(:message).permit(:content, :user_id)
+    params.require(:message).permit(:content)
   end
 end

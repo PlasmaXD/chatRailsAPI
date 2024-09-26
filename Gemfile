@@ -27,15 +27,20 @@ gem "puma", ">= 5.0"
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ mswin mswin64 mingw x64_mingw jruby ]
 gem 'active_model_serializers'
+gem 'dotenv-rails', '~> 2.7', groups: [:development, :test] # 最新バージョンを指定
+gem 'devise'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 gem 'rack-cors', require: 'rack/cors'
 gem 'redis'
 gem 'sidekiq'
-
+gem 'google-cloud-pubsub'
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
+gem 'bcrypt', '~> 3.1.7'
+gem 'google-cloud-ai_platform'
+gem 'actionpack'
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin Ajax possible
 # gem "rack-cors"
