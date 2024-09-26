@@ -1,5 +1,4 @@
-# /chatapp/app/channels/application_cable/connection.rb
-
+# app/channels/application_cable/connection.rb
 module ApplicationCable
   class Connection < ActionCable::Connection::Base
     identified_by :current_user
@@ -12,8 +11,7 @@ module ApplicationCable
     private
 
     def find_verified_user
-      token = request.params[:token]
-      if token && (user = User.find_by(authentication_token: token))
+      if (user = User.find_by(id: cookies.signed[:user_id]))
         user
       else
         reject_unauthorized_connection
