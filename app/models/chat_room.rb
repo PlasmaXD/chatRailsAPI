@@ -1,7 +1,7 @@
 class ChatRoom < ApplicationRecord
-  has_many :chat_room_users
+  has_many :chat_room_users, dependent: :destroy
   has_many :users, through: :chat_room_users
-  has_many :messages
+  has_many :messages, dependent: :destroy
 
   # enumでの競合を避けるため、キー名と値を明確にする
   enum room_type: { individual_chat: 'individual_chat', group_chat: 'group_chat' }
